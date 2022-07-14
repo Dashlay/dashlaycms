@@ -6,6 +6,8 @@ import { LockClosedIcon } from "@heroicons/react/solid";
 import Login from "./login";
 import { useSelector } from "react-redux";
 import { getRegisteredComponents } from "../redux/componentsSlice";
+import FrontPage from "./Frontpage";
+import Link from "next/link";
 
 const Home: NextPage = () => {
 	const components = useSelector(getRegisteredComponents);
@@ -13,7 +15,11 @@ const Home: NextPage = () => {
 	return (
 		<div>
 			<h1>Welcome to Dashlay</h1>
+			<Link href={"/login"}>
+				<a>Login</a>
+			</Link>
 			{/* Skal loade alle komponenter */}
+			<FrontPage />
 		</div>
 	);
 };

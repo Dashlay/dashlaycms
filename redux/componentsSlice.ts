@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 /**
  * Components structure
@@ -25,11 +25,28 @@ export const componentSlice = createSlice({
 		usedComponents: [],
 	},
 	reducers: {
-		addComponent: (state, action) => {
-			state.usedComponents.push(action.payload);
+		addComponent: (state, action: PayloadAction<String>) => {
+			// Find component in registeredComponents
+			try {
+				const component = state.registeredComponents[action.payload];
+
+				state.usedComponents.push({
+					namespace: action.payload,
+					...component,
+				});
+			} catch (error) {
+				console.error("Something went wrong", error);
+			}
+
+			// Push to usedComponents
 		},
 		updateComponent: (state, action) => {},
-		removeComponent: (state, action) => {},
+		removeComponent: (state, action) => {
+			console.log(action.payload);
+			state.usedComponents = state.usedComponents.filter(
+				(val, index) => index !== action.payload
+			);
+		},
 	},
 });
 

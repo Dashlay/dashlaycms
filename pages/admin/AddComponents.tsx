@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
-import { useSelector } from "react-redux";
-import { getRegisteredComponents } from "../../redux/componentsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+	addComponent,
+	getRegisteredComponents,
+} from "../../redux/componentsSlice";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
@@ -12,6 +15,7 @@ function classNames(...classes) {
 const AddComponents = () => {
 	const registeredComponents = useSelector(getRegisteredComponents);
 	const [componentNames, setComponentNames] = useState<string[]>();
+	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (registeredComponents) {
@@ -54,7 +58,13 @@ const AddComponents = () => {
 					<div className="py-1">
 						{componentNames?.map((el) => (
 							<Menu.Item>
-								<a>{el}</a>
+								<a
+									href="#"
+									className="bg-gray-100 text-gray-900 block px-4 py-2 text-sm"
+									onClick={(e) => dispatch(addComponent(el))}
+								>
+									{el}
+								</a>
 							</Menu.Item>
 						))}
 						{/* {Object.entries(componentNames).forEach(([key, value]) => {

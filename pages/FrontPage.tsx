@@ -1,9 +1,9 @@
 import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
 import { Suspense } from "react";
-import { getUsedComponents } from "../../redux/componentsSlice";
+import { getUsedComponents } from "../redux/componentsSlice";
 
-const Preview = () => {
+const FrontPage = () => {
 	const components = useSelector(getUsedComponents);
 
 	console.log("Components", components);
@@ -15,7 +15,7 @@ const Preview = () => {
 	// };
 
 	const DynamicComponent = dynamic(
-		() => import("../../components/philip/fullImage"),
+		() => import("../components/philip/fullImage"),
 		{
 			suspense: true,
 		}
@@ -34,7 +34,8 @@ const Preview = () => {
 							components.map((el, id) => {
 								console.log(el);
 								return (
-									<div className="mb-4">
+									<div>
+										<h1>{el.namespace}</h1>
 										<DynamicComponent />
 									</div>
 								);
@@ -47,4 +48,4 @@ const Preview = () => {
 	);
 };
 
-export default Preview;
+export default FrontPage;

@@ -28,11 +28,12 @@ import {
 	XIcon,
 } from "@heroicons/react/outline";
 import { SearchIcon } from "@heroicons/react/solid";
-import FullImage from "../components/fullImage";
+import FullImage from "../components/philip/fullImage";
 import Preview from "./admin/Preview";
 import Sidebar from "./admin/Sidebar";
 import { useSelector } from "react-redux";
 import { getRegisteredComponents } from "../redux/componentsSlice";
+import Link from "next/link";
 
 const navigation = [
 	{ name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -58,8 +59,6 @@ export default function Example() {
 	const [componentsList, setComponentsList] = useState([]);
 
 	const store = useSelector(getRegisteredComponents);
-
-	console.log("Store", store);
 
 	return (
 		<>
@@ -194,13 +193,16 @@ export default function Example() {
 									</form>
 								</div>
 								<div className="ml-4 flex items-center md:ml-6">
-									<button
+									<Link href="/">
+										<a>Go to frontpage</a>
+									</Link>
+									{/* <button
 										type="button"
 										className="bg-white p-1 rounded-full text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
 									>
 										<span className="sr-only">View notifications</span>
 										<BellIcon className="h-6 w-6" aria-hidden="true" />
-									</button>
+									</button> */}
 
 									{/* Profile dropdown */}
 									<Menu as="div" className="ml-3 relative">
