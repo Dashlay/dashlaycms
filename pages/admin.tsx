@@ -32,7 +32,7 @@ import FullImage from "../components/fullImage";
 import Preview from "./admin/Preview";
 import Sidebar from "./admin/Sidebar";
 import { useSelector } from "react-redux";
-import { getAllComponents } from "../redux/componentsSlice";
+import { getRegisteredComponents } from "../redux/componentsSlice";
 
 const navigation = [
 	{ name: "Dashboard", href: "#", icon: HomeIcon, current: true },
@@ -57,7 +57,7 @@ export default function Example() {
 
 	const [componentsList, setComponentsList] = useState([]);
 
-	const store = useSelector(getAllComponents);
+	const store = useSelector(getRegisteredComponents);
 
 	console.log("Store", store);
 

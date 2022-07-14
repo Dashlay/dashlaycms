@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { getRegisteredComponents } from "../../redux/componentsSlice";
 import AddComponents from "./AddComponents";
 
 const Sidebar = () => {

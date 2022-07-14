@@ -1,13 +1,37 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Fragment } from "react";
 import { Menu, Transition } from "@headlessui/react";
 import { ChevronDownIcon } from "@heroicons/react/solid";
+import { useSelector } from "react-redux";
+import { getRegisteredComponents } from "../../redux/componentsSlice";
 
 function classNames(...classes) {
 	return classes.filter(Boolean).join(" ");
 }
 
 const AddComponents = () => {
+	const registeredComponents = useSelector(getRegisteredComponents);
+	const [componentNames, setComponentNames] = useState<string[]>();
+
+	useEffect(() => {
+		if (registeredComponents) {
+			// let names = registeredComponents.map((el) => {
+			// 	return {
+			// 		name: el
+			// 			.split("/")[1]
+			// 			.replace(/([A-Z])/g, " $1")
+			// 			.trim()
+			// 			.toLocaleLowerCase(),
+			// 		namespace: el,
+			// 	};
+			// });
+
+			let names: string[] = registeredComponents.map((el) => el.toString());
+
+			setComponentNames(names);
+		}
+	}, []);
+
 	return (
 		<Menu as="div" className="relative inline-block text-left">
 			<div>
@@ -28,60 +52,20 @@ const AddComponents = () => {
 			>
 				<Menu.Items className="origin-top-left absolute left-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
 					<div className="py-1">
-						<Menu.Item>
-							{({ active }) => (
-								<a
-									href="#"
-									className={classNames(
-										active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-										"block px-4 py-2 text-sm"
-									)}
-								>
-									Account settings
-								</a>
-							)}
-						</Menu.Item>
-						<Menu.Item>
-							{({ active }) => (
-								<a
-									href="#"
-									className={classNames(
-										active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-										"block px-4 py-2 text-sm"
-									)}
-								>
-									Support
-								</a>
-							)}
-						</Menu.Item>
-						<Menu.Item>
-							{({ active }) => (
-								<a
-									href="#"
-									className={classNames(
-										active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-										"block px-4 py-2 text-sm"
-									)}
-								>
-									License
-								</a>
-							)}
-						</Menu.Item>
-						<form method="POST" action="#">
+						{componentNames?.map((el) => (
 							<Menu.Item>
-								{({ active }) => (
-									<button
-										type="submit"
-										className={classNames(
-											active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-											"block w-full text-left px-4 py-2 text-sm"
-										)}
-									>
-										Sign out
-									</button>
-								)}
+								<a>{el}</a>
 							</Menu.Item>
-						</form>
+						))}
+						{/* {Object.entries(componentNames).forEach(([key, value]) => {
+							console.log("Value", value);
+
+							return (
+								<Menu.Item>
+									<a href="#" className="bg-gray-100 text-gray-900"></a>
+								</Menu.Item>
+							);
+						})} */}
 					</div>
 				</Menu.Items>
 			</Transition>

@@ -11,9 +11,23 @@ import { createSlice } from "@reduxjs/toolkit";
 
 export const componentSlice = createSlice({
 	name: "componentsSlice",
-	initialState: [{ test: "Hello" }],
+	initialState: {
+		registeredComponents: {
+			"philip/fullImage": {
+				componentName: "Full Image",
+				imageUrl: "",
+				topHeadline: "",
+				headline: "",
+				bodyText: "",
+				ctaText: "",
+			},
+		},
+		usedComponents: [],
+	},
 	reducers: {
-		addComponent: (state, action) => {},
+		addComponent: (state, action) => {
+			state.usedComponents.push(action.payload);
+		},
 		updateComponent: (state, action) => {},
 		removeComponent: (state, action) => {},
 	},
@@ -22,6 +36,9 @@ export const componentSlice = createSlice({
 export const { addComponent, updateComponent, removeComponent } =
 	componentSlice.actions;
 
-export const getAllComponents = (state) => state.components;
+export const getRegisteredComponents = (state) =>
+	Object.keys(state.components.registeredComponents);
+
+export const getUsedComponents = (state) => state.components.usedComponents;
 
 export default componentSlice.reducer;
